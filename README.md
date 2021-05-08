@@ -1,27 +1,4 @@
-# SpreadSheet Using Pure JavaScript
 
-Created a spreadsheet using javascript. 
-Integrated several features such as
-- Add row
-- Delete row
-- Add column
-- Delete column
-- Perform various arithmetic operations such as Addition, Subtraction, Multiplication, Division and Modulus on selected multiple rows or columns and display their output in the selected cell
-- Updating the value of the cell will also update the output of the calculated arithmetic operation
-- Export all the cell entries in a CSV
-
-## Instructions To Run The Project
-
-Clone the repository on your local machine using command
-
-```sh
-git clone https://github.com/neu-mis-info6150-spring-2018/extra-credit-assignment-1-techcrat.git
-```
-
-Go inside the folder and run the commands to install the dependencies
-
-```sh
-cd extra-credit-assignment-1-techcrat
 npm install
 ```
 
@@ -70,20 +47,3 @@ Now, select a cell where you want to display the output of any arithmetic operat
 ### Export Entries To CSV File
 Click on the **Export HTML Table To CSV File** Button
 
-### ES6 Features Used
-- Import / Export
-- Arrow Functions
-- Let Keyword
-
-## In this project, Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript
-- Node.js
-- ECMAScript 6
-- Webpack
-
-## Production
-
-Application Deployed on: https://javascript-spreadsheet-app.firebaseapp.com/
