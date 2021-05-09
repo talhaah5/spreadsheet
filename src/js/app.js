@@ -80,7 +80,7 @@ var loadTable = (event) => {
                     x.setAttribute("type", "text");
                     x.setAttribute("id", i.toString() +","+ strCol[j-1].toString());
                     x.id = i.toString() +","+ strCol[j-1].toString();
-                    document.getElementById("result").innerHTML +=i.toString() +","+ strCol[j-1].toString();
+                    // document.getElementById("result").innerHTML +=i.toString() +","+ strCol[j-1].toString();
                     x.addEventListener('input', function (evt) {
                         if(!matching)
                             getRowsId(this.value);
@@ -464,7 +464,7 @@ function exportTableToCSV(event) {
                     row.push(cols[j].innerText);
                 }
             }
-            csv.push(row.join(","));
+            csv.push(row.join("*"));
         }
 
         // Download CSV file
@@ -535,7 +535,7 @@ function matchingAlgo(event){
                         // document.getElementById("result").innerHTML += cols[j - 1].value+" , "
                     } else {
                         row_name = cols[j].innerText;
-                        document.getElementById("result").innerHTML += row_name+" , "
+                        // document.getElementById("result").innerHTML += row_name+" , "
                     }
                 }
             }
