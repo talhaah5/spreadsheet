@@ -11,6 +11,7 @@ import {
 } from './dom-loader.js';
 var isMouseDown, isHighlighted;
 // Declaring number of rows and cols to be displayed on page load
+var matching = false;
 var defrows = 8,
     defcolumns = 11;
 var rowName = "A1",columnName = "1";
@@ -75,15 +76,20 @@ var loadTable = (event) => {
                     eventHandlersTd(td, event);
                     // Makes all the cells except the first cell as an input
                     let x = document.createElement("INPUT");
+                    //x.value = i.toString() +","+ strCol[j-1].toString();
                     x.setAttribute("type", "text");
+                    x.setAttribute("id", i.toString() +","+ strCol[j-1].toString());
+                    x.id = i.toString() +","+ strCol[j-1].toString();
+                    document.getElementById("result").innerHTML +=i.toString() +","+ strCol[j-1].toString();
                     x.addEventListener('input', function (evt) {
-                        getRowsId(this.value);
+                        if(!matching)
+                            getRowsId(this.value);
+                        else
+                            clearWaiting(this.id,this.value)
                     });
                     td.appendChild(x);
                     // Assign id to cell
-                    td.setAttribute("id", i.toString() +","+ strCol[j-1].toString());
-                    td.id = i.toString() +","+ strCol[j-1].toString();
-                    document.getElementById("result").innerHTML +=i.toString() +","+ strCol[j-1].toString();
+                   
                 } else {
                     
                     // Adds numbers in the first column of each row
@@ -502,39 +508,48 @@ function getRowsId(names) {
            
 }
 function matchingAlgo(event){
-    let csv = [];
+        matching = true;
         let rows = document.querySelectorAll("table tr");
 
         for (let i = 0; i < rows.length; i++) {
             let row = [];
             if (i > 0) {
                 let cols = rows[i].querySelectorAll("td");
-                
-                for (let j = 0; j <= cols.length; j++) {
+                var row_name = ""
+                for (let j = 0; j < cols.length; j++) {
                     if (j > 0) {
                         cols = rows[i].querySelectorAll("td input");
                         row.push(cols[j - 1].value);
-                        //document.getElementById("result").innerHTML += cols[2].value
+                        if(cols[j-1].value != ''){
+                            var c = cols[j-1].value;
+                            // document.getElementById("result").innerHTML += row_name+" , "
+                             var col_values = c.split(',');
+                            //  document.getElementById(row_name + ",waiting").value = row_name;
+                            for(let k = 0; k < col_values.length;k++){
+                                
+                                // document.getElementById("result").innerHTML += col_values[k]+" , "
+                                document.getElementById(col_values[k] + ",waiting").value += row_name +","
+                            }
+
+                        }
+                        // document.getElementById("result").innerHTML += cols[j - 1].value+" , "
                     } else {
-                        row.push(cols[j].innerText);
+                        row_name = cols[j].innerText;
+                        document.getElementById("result").innerHTML += row_name+" , "
                     }
                 }
-            } else {
-                let cols = rows[i].querySelectorAll("th");
-                for (let j = 0; j < cols.length; j++) {
-                    row.push(cols[j].innerText);
-                }
             }
-            csv.push(row.join(","));
+        
         }
-        // document.getElementById("3,waiting").value = "talha";
-         document.getElementById("result").innerHTML = document.querySelectorAll("1,waiting input").value;
-        // csv.push(row);
     }
 
-    // for(let i = 0;i< rows.length; i++){
-        
-    // }
+    function clearWaiting(id,value){
+        if(value != ""){
+            var c = id.split(",");
+            document.getElementById(c[0] + ",waiting").value = "";
+        }
+
+    }
 
 
     
