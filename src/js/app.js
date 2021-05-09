@@ -6,7 +6,7 @@ import {
     addCol,
     delRow,
     delCol,
-
+    next,
     exportToCSV
 } from './dom-loader.js';
 var isMouseDown, isHighlighted;
@@ -81,7 +81,9 @@ var loadTable = (event) => {
                     });
                     td.appendChild(x);
                     // Assign id to cell
-                    td.setAttribute("id", str.charAt(j - 1) + i);
+                    td.setAttribute("id", i.toString() +","+ strCol[j-1].toString());
+                    td.id = i.toString() +","+ strCol[j-1].toString();
+                    document.getElementById("result").innerHTML +=i.toString() +","+ strCol[j-1].toString();
                 } else {
                     
                     // Adds numbers in the first column of each row
@@ -120,6 +122,7 @@ var loadTable = (event) => {
                     // Adds alphabets as the nam5e of the columns
                     let x = document.createElement("INPUT");
                     x.setAttribute("type", "text");
+                    x.setAttribute("id",strCol[j-1])
                     x.value = strCol[j-1];
                     th.appendChild(x);
                 } else {
@@ -143,6 +146,7 @@ addRow.addEventListener('click', insertRow);
 addCol.addEventListener('click', insertColumn);
 delRow.addEventListener('click', removeRow);
 delCol.addEventListener('click', removeCol);
+next.addEventListener('click',matchingAlgo)
 
 
 exportToCSV.addEventListener('click',exportTableToCSV);
@@ -472,6 +476,7 @@ function getRowsId(names) {
             
             if (i > 0) {
                 let cols = rows[i].querySelectorAll("td");
+                
                 for (let j = 0; j <= cols.length; j++) {
                     if (j > 0) {
                         // cols = rows[i].querySelectorAll("td input");
@@ -482,8 +487,6 @@ function getRowsId(names) {
                 }
             }
             // csv.push(row.join(","));
-            
-
         }
         console.log(row)
         var input = names.split(',');
@@ -498,4 +501,41 @@ function getRowsId(names) {
             }
            
 }
+function matchingAlgo(event){
+    let csv = [];
+        let rows = document.querySelectorAll("table tr");
+
+        for (let i = 0; i < rows.length; i++) {
+            let row = [];
+            if (i > 0) {
+                let cols = rows[i].querySelectorAll("td");
+                
+                for (let j = 0; j <= cols.length; j++) {
+                    if (j > 0) {
+                        cols = rows[i].querySelectorAll("td input");
+                        row.push(cols[j - 1].value);
+                        //document.getElementById("result").innerHTML += cols[2].value
+                    } else {
+                        row.push(cols[j].innerText);
+                    }
+                }
+            } else {
+                let cols = rows[i].querySelectorAll("th");
+                for (let j = 0; j < cols.length; j++) {
+                    row.push(cols[j].innerText);
+                }
+            }
+            csv.push(row.join(","));
+        }
+        // document.getElementById("3,waiting").value = "talha";
+         document.getElementById("result").innerHTML = document.querySelectorAll("1,waiting input").value;
+        // csv.push(row);
+    }
+
+    // for(let i = 0;i< rows.length; i++){
+        
+    // }
+
+
+    
 
