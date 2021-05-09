@@ -12,7 +12,7 @@ import {
 var isMouseDown, isHighlighted;
 // Declaring number of rows and cols to be displayed on page load
 var defrows = 8,
-    defcolumns = 5;
+    defcolumns = 11;
 var rowName = "A1",columnName = "1";
 // Function to be called on page load 
 var init = (event) => {
@@ -38,6 +38,8 @@ var loadTable = (event) => {
     table.setAttribute("id", "tableId");
     let tbody = document.createElement('tbody');
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    let strCol = ["waiting","10%","20%","30%","40%","50%","60%","70%","80%","90%","100%"];
+
     // Load for rows
     for (let i = 0; i <= defrows; i++) {
         let tr = document.createElement('tr');
@@ -118,7 +120,7 @@ var loadTable = (event) => {
                     // Adds alphabets as the nam5e of the columns
                     let x = document.createElement("INPUT");
                     x.setAttribute("type", "text");
-                    x.value = str.charAt(j - 1);
+                    x.value = strCol[j-1];
                     th.appendChild(x);
                 } else {
                     // First column of first row is made empty
@@ -143,7 +145,7 @@ delRow.addEventListener('click', removeRow);
 delCol.addEventListener('click', removeCol);
 
 
-exportToCSV.addEventListener('click',getRowsId);
+exportToCSV.addEventListener('click',exportTableToCSV);
 
 document.onmouseup = myMouseUpHandler;
 
